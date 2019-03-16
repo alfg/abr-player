@@ -69,10 +69,8 @@ import '@/assets/player-controls.css';
 const { defaultUrl, defaultLicenseUrl, defaultDrm } = config;
 
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String,
-  },
+  name: 'Player',
+  props: {},
   data() {
     return {
       player: null,
@@ -83,15 +81,15 @@ export default {
       drm: defaultDrm,
     }
   },
-  computed: {},
   mounted() {
+    this.setQueryParams();
     this.init();
   },
   methods: {
     setQueryParams() {
       // Check if query params are set.
       if (this.$route.query.url) {
-        this.mediaUrl = this.$route.query.url;
+        this.url = this.$route.query.url;
       }
       if (this.$route.query.licenseUrl) {
         this.licenseUrl = this.$route.query.licenseUrl;

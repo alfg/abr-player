@@ -5,11 +5,11 @@ const config = {
   videoItems: [
     {
       name: 'Tears of Steel (DASH Clear)',
-      url: 'https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd'
+      url: 'https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd',
     },
     {
       name: 'Tears of Steel (DASH Clear) 2',
-      url: 'https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd2'
+      url: 'https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd2',
     },
     {
       name: 'Angel One (multicodec, multilingual)',
@@ -17,15 +17,15 @@ const config = {
     },
     {
       name: 'Angel One (multicodec, multilingual, Widevine)',
-      url: 'https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd'
+      url: 'https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd',
     },
     {
       name: 'Sintel 4k (multicodec)',
-      url: 'https://storage.googleapis.com/shaka-demo-assets/sintel/dash.mpd'
+      url: 'https://storage.googleapis.com/shaka-demo-assets/sintel/dash.mpd',
     },
     {
       name: 'Big Buck Bunny',
-      url: 'https://dash.akamaized.net/dash264/TestCases/1c/qualcomm/2/MultiRate.mpd'
+      url: 'https://dash.akamaized.net/dash264/TestCases/1c/qualcomm/2/MultiRate.mpd',
     },
   ],
   licenseServers: {

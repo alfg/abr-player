@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <Player msg=""/>
+    <Player />
     <Footer />
   </div>
 </template>
