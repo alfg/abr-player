@@ -2,7 +2,11 @@ const config = {
   defaultUrl: 'https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd',
   defaultLicenseUrl: 'https://widevine-proxy.appspot.com/proxy',
   defaultDrm: 'widevine',
-  videoItems: [
+  mediaItems: [
+    {
+      name: 'Tears of Steel (DASH Widevine)',
+      url: 'https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd',
+    },
     {
       name: 'Tears of Steel (DASH Clear)',
       url: 'https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd',
@@ -26,6 +30,10 @@ const config = {
     {
       name: 'Big Buck Bunny',
       url: 'https://dash.akamaized.net/dash264/TestCases/1c/qualcomm/2/MultiRate.mpd',
+    },
+    {
+      name: 'Custom',
+      url: '',
     },
   ],
   licenseServers: {

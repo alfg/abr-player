@@ -1,5 +1,7 @@
 # vue-player
 
+Work-in-progress!
+
 ## Project setup
 ```
 npm install
