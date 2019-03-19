@@ -66,9 +66,14 @@
         video/mp4; codecs="avc1.42E01E"
       </li>
       <li>
+        <span class="material-icons checked" v-if="supportsMp4Hevc">check_circle</span>
+        <span class="material-icons" v-else>close</span>
+        video/mp4; codecs="hevc"
+      </li>
+      <li>
         <span class="material-icons checked" v-if="supportsMp4Ec3">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/mp4; codecs="ec-3"</li>
+        audio/mp4; codecs="ec-3"</li>
       <li>
         <span class="material-icons checked" v-if="supportsWebmVp8">check_circle</span>
         <span class="material-icons" v-else>close</span>
@@ -77,7 +82,7 @@
       <li>
         <span class="material-icons checked" v-if="supportsWebmVp9">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/mp2t; codecs="avc1.42E01E,mp4a.40.2"
+        video/webm; codecs="vp9"
       </li>
     </ul>
     </div>
@@ -85,14 +90,13 @@
 </template>
 
 <script>
+
 export default {
   name: 'probe',
   props: ['info'],
   watch: {
-    info: function() {
-      console.log(this.info.manifest);
-      console.log(this.info.media);
-      console.log(this.info.drm);
+    info() {
+      console.log(this.info.manifest); // eslint-disable-line no-console
     },
   },
   computed: {
@@ -106,22 +110,27 @@ export default {
       return this.info && this.info.manifest.m3u8;
     },
     supportsWidevine() {
-      return this.info && this.info.drm["com.widevine.alpha"];
+      return this.info && this.info.drm['com.widevine.alpha'];
     },
     supportsPlayready() {
-      return this.info && this.info.drm["com.microsoft.playready"];
+      return this.info && this.info.drm['com.microsoft.playready'];
     },
     supportsFairplay() {
-      return this.info && this.info.drm["com.apple.fps"];
+      return this.info && this.info.drm['com.apple.fps'];
     },
     supportsPrimetime() {
-      return this.info && this.info.drm["com.adobe.primetime"];
+      return this.info && this.info.drm['com.adobe.primetime'];
     },
     supportsMp4Avc1() {
       return this.info && this.info.media['video/mp4; codecs="avc1.42E01E"'];
     },
+    supportsMp4Hevc() {
+      return this.info
+        && (this.info.media['video/mp4; codecs="hev1.1.6.L93.90"']
+        || this.info.media['video/mp4; codecs="hvc1.1.6.L93.90"']);
+    },
     supportsMp4Ec3() {
-      return this.info && this.info.media['video/mp4; codecs="ec-3"'];
+      return this.info && this.info.media['audio/mp4; codecs="ec-3"'];
     },
     supportsWebmVp8() {
       return this.info && this.info.media['video/webm; codecs="vp8"'];
@@ -132,21 +141,10 @@ export default {
   },
   methods: {
   },
-}
+};
 </script>
 
 <style scoped>
-.probe {
-  /* background-color: #f4f4f4;
-  border: 1px solid #aaa;
-  color: #000;
-  font-family: monospace;
-  height: 60px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 5px; */
-}
-
 ul {
   list-style: none;
 }
@@ -165,5 +163,3 @@ li span.checked {
   color: green;
 }
 </style>
-
-

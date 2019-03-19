@@ -13,18 +13,18 @@ export default {
   name: 'log',
   props: ['logs'],
   watch: {
-    logs: function() {
+    logs() {
       this.updateLogPosition();
-    }
+    },
   },
   methods: {
     updateLogPosition() {
       setTimeout(() => {
         this.$refs.log.scrollTop = this.$refs.log.scrollHeight;
       }, 1);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -53,5 +53,3 @@ export default {
   white-space: pre-wrap;
 }
 </style>
-
-
