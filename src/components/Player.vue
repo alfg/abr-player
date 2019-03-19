@@ -8,6 +8,8 @@
       />
     </div>
 
+    <Probe :info="probe"/>
+
     <label for="drm">Select Media</label>
     <select v-model="url" class="u-full-width">
       <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
@@ -41,55 +43,15 @@
       <button v-on:click="stop">Unload</button>
     </div>
 
-
-    <!--
-    <div class="player-controls" v-if="connected">
-      <button
-        class="material-icons"
-        v-on:click="pause"
-        v-if="playing">pause_arrow</button>
-      <button class="material-icons" v-on:click="play" v-else>play_arrow</button>
-      <input
-        class="seekBar"
-        type="range"
-        step="any"
-        min="0"
-        v-bind:max="duration"
-        v-bind:value="currentTime"
-        @change="onSeekChange">
-      <button class="rewindButton material-icons">fast_rewind</button>
-      <div class="currentTime">{{timeString}}</div>
-      <button class="fastForwardButton material-icons">fast_forward</button>
-      <button
-        class="muteButton material-icons"
-        v-on:click="setMute"
-        v-if="muted">volume_mute</button>
-      <button
-        class="muteButton material-icons"
-        v-on:click="setMute"
-        v-else>volume_up</button>
-      <input
-        class="volumeBar"
-        type="range"
-        step="any"
-        min="0"
-        max="1"
-        v-bind:value="volume"
-        v-bind:style="{
-          background: 'linear-gradient(to right, rgb(204, 204, 204) ' + volume * 100 + '%,
-          rgb(0, 0, 0) ' + volume * 100 + '%, rgb(0, 0, 0) 100%)'
-        }"
-        @change="onVolumeChange"
-      />
-    </div>
- -->
-    <!-- <Log v-bind:logs="debugLog" /> -->
+    <Log v-bind:logs="debugLog" />
   </div>
 </template>
 
 <script>
 import shaka from 'shaka-player';
 import config from '@/config';
+import Log from '@/components/Log.vue';
+import Probe from '@/components/Probe.vue';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
 import '@/assets/player-controls.css';
@@ -103,6 +65,10 @@ const {
 
 export default {
   name: 'Player',
+  components: {
+    Log,
+    Probe,
+  },
   props: {},
   data() {
     return {
@@ -113,6 +79,8 @@ export default {
       licenseUrl: defaultLicenseUrl,
       drm: defaultDrm,
       mediaItems,
+      debugLog: [],
+      probe: null,
     };
   },
   computed: {
@@ -126,7 +94,7 @@ export default {
   },
   mounted() {
     this.setQueryParams();
-    // this.init();
+    this.init();
   },
   methods: {
     setQueryParams() {
@@ -142,7 +110,17 @@ export default {
       }
     },
     init() {
+      this.log('[player] - init');
       shaka.polyfill.installAll();
+
+      this.log('[player] - version: ', shaka.Player.version);
+      this.log('[player] - isBrowserSupported: ', shaka.Player.isBrowserSupported());
+
+      shaka.Player.probeSupport().then((data) => {
+        this.log('[player] - probeSupport ', data);
+        console.log(data.media);
+        this.probe = data;
+      });
     },
     load() {
       // Create player.
@@ -169,6 +147,11 @@ export default {
           servers: config.licenseServers,
         },
       });
+    },
+    log(...message) {
+      console.log(message.join(' '));
+      // debugLog gets updated and passed to <Log /> prop.
+      this.debugLog = this.debugLog.concat(message.join(' '));
     },
   },
 };
