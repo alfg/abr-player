@@ -1,0 +1,101 @@
+<template>
+<div class="settings">
+  <label for="drm">Select Media</label>
+  <select v-model="url" class="u-full-width">
+    <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
+  </select>
+
+  <div v-if="url === '' || isCustom">
+    <label>Media URL</label>
+    <input
+      v-model="url"
+      class="u-full-width"
+      type="text"
+    />
+
+    <label>License Server URL</label>
+    <input
+      v-model="licenseUrl"
+      class="u-full-width"
+      type="text"
+    />
+
+    <label for="drm">DRM</label>
+    <select v-model="drm" class="u-full-width" id="drm">
+      <option value="none">None</option>
+      <option value="widevine">Widevine</option>
+      <option value="playready">PlayReady</option>
+    </select>
+  </div>
+
+  <div class="control-buttons">
+    <button v-on:click="$emit('load', url)" class="button-primary">Load Media</button>
+    <button v-on:click="$emit('unload')">Unload</button>
+  </div>
+</div>
+</template>
+
+<script>
+import config from '@/config';
+
+const {
+  defaultUrl,
+  defaultLicenseUrl,
+  defaultDrm,
+  mediaItems,
+} = config;
+
+export default {
+  name: 'Settings',
+  components: {},
+  data() {
+    return {
+      url: defaultUrl,
+      licenseUrl: defaultLicenseUrl,
+      drm: defaultDrm,
+      mediaItems,
+    };
+  },
+  computed: {
+    isCustom() {
+      return (
+        this.$route.query.url
+        || this.$route.query.licenseUrl
+        || this.$route.query.drm
+      );
+    },
+  },
+  mounted() {
+    this.setQueryParams();
+  },
+  methods: {
+    setQueryParams() {
+      // Check if query params are set.
+      if (this.$route.query.url) {
+        this.url = this.$route.query.url;
+      }
+      if (this.$route.query.licenseUrl) {
+        this.licenseUrl = this.$route.query.licenseUrl;
+      }
+      if (this.$route.query.drm) {
+        this.drm = this.$route.query.drm.toLowerCase();
+      }
+    },
+  },
+};
+</script>
+
+<style scoped>
+.settings button {
+  margin: 0 2px;
+}
+
+/* .settings-buttons {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.settings-buttons span {
+  margin-left: 10px;
+} */
+</style>

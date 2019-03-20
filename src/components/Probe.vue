@@ -63,26 +63,26 @@
       <li>
         <span class="material-icons checked" v-if="supportsMp4Avc1">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/mp4; codecs="avc1.42E01E"
+        mp4/avc1
       </li>
       <li>
         <span class="material-icons checked" v-if="supportsMp4Hevc">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/mp4; codecs="hevc"
+        mp4/hevc
       </li>
       <li>
         <span class="material-icons checked" v-if="supportsMp4Ec3">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        audio/mp4; codecs="ec-3"</li>
+        mp4/ec-3</li>
       <li>
         <span class="material-icons checked" v-if="supportsWebmVp8">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/webm; codecs="vp8"
+        webm/vp8
       </li>
       <li>
         <span class="material-icons checked" v-if="supportsWebmVp9">check_circle</span>
         <span class="material-icons" v-else>close</span>
-        video/webm; codecs="vp9"
+        webm/vp9
       </li>
     </ul>
     </div>
