@@ -80,7 +80,6 @@ export default {
   },
   watch: {
     selectedPlayer() {
-      console.log('selected player changed');
       this.video = this.$refs.player.video;
     },
   },

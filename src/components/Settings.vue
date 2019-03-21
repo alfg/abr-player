@@ -1,7 +1,10 @@
 <template>
 <div class="settings">
   <label for="player">Player</label>
-  <select v-model="selectedPlayer" class="u-full-width" @change="$emit('changePlayer', selectedPlayer)">
+  <select
+    v-model="selectedPlayer"
+    class="u-full-width"
+    @change="$emit('changePlayer', selectedPlayer)">
     <option v-for="o in players" :key="o.id" :value="o.component">{{o.name}}</option>
   </select>
 
