@@ -1,7 +1,7 @@
 <template>
   <div class="player container">
 
-    <!-- Player -->
+    <!-- Player & Controls -->
     <div class="video-container">
       <ShakaPlayer
         ref="player"
@@ -10,13 +10,21 @@
         v-on:log="log"
       />
     </div>
+    <Controls
+      :video="video"
+      v-on:play="play"
+      v-on:pause="pause"
+    />
 
-    <!-- Settings and Controls -->
+    <!-- Probe & Settings -->
     <Probe :info="probe"/>
     <Settings
       v-on:load="load"
       v-on:unload="unload"
     />
+
+    <!-- <button v-on:click="play">play</button>
+    <button v-on:click="pause">pause</button> -->
 
     <!-- Logger -->
     <Log v-bind:logs="logs" />
@@ -25,6 +33,7 @@
 
 <script>
 import shaka from 'shaka-player';
+import Controls from '@/components/Controls.vue';
 import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
@@ -35,6 +44,7 @@ import '@/assets/skeleton.css';
 export default {
   name: 'Player',
   components: {
+    Controls,
     Log,
     Probe,
     Settings,
@@ -47,11 +57,15 @@ export default {
       controls: true,
       logs: [],
       probe: null,
+      video: null,
     };
   },
   computed: {},
   created() {
     this.init();
+  },
+  mounted() {
+    this.video = this.$refs.player.video;
   },
   methods: {
     init() {
@@ -63,6 +77,14 @@ export default {
     },
     unload() {
       this.$refs.player.unload();
+    },
+    play() {
+      const { video } = this.$refs.player;
+      video.play();
+    },
+    pause() {
+      const { video } = this.$refs.player;
+      video.pause();
     },
     probeData() {
       this.log('[player] - probeSupport');

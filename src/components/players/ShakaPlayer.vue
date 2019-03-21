@@ -13,18 +13,20 @@ import shaka from 'shaka-player';
 import config from '@/config';
 
 export default {
-  name: 'Player',
+  name: 'ShakaPlayer',
   components: {
   },
   props: ['controls', 'autoplay'],
   data() {
     return {
       player: null,
+      video: null,
     };
   },
   watch: {},
   computed: {},
-  created() {
+  created() {},
+  mounted() {
     this.init();
   },
   methods: {
@@ -33,12 +35,13 @@ export default {
       this.log('[ShakaPlayer] - version:', shaka.Player.version);
       this.log('[ShakaPlayer] - isBrowserSupported:', shaka.Player.isBrowserSupported());
       shaka.polyfill.installAll();
+      const { video } = this.$refs;
+      this.video = video;
     },
     configure() {},
     load(url) {
       // Create player.
-      const { video } = this.$refs;
-      this.player = new shaka.Player(video);
+      this.player = new shaka.Player(this.video);
       this.setConfiguration();
 
       // Load url.
@@ -49,14 +52,20 @@ export default {
       });
     },
     unload() {
+      this.log('[ShakaPlayer] - unload');
       if (this.player) {
         this.player.unload();
         this.player.destroy();
+        this.player = null;
       }
     },
-    play() {},
-    pause() {},
-    destroy() {},
+    destroy() {
+      this.log('[ShakaPlayer] - destroy');
+      if (this.player) {
+        this.player.destroy();
+        this.player = null;
+      }
+    },
     setConfiguration() {
       this.setProtection();
     },
