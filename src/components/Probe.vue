@@ -5,8 +5,14 @@
     <h4>Player</h4>
     <ul>
       <li>
-        <span class="material-icons checked">check_circle</span>
+        <span class="material-icons checked" v-if="player === 'ShakaPlayer'">check_circle</span>
+        <span class="material-icons" v-else>close</span>
         Shaka Player
+      </li>
+      <li>
+        <span class="material-icons checked" v-if="player === 'HasPlayer'">check_circle</span>
+        <span class="material-icons" v-else>close</span>
+        HasPlayer
       </li>
     </ul>
     </div>
@@ -93,7 +99,7 @@
 
 export default {
   name: 'probe',
-  props: ['info'],
+  props: ['player', 'info'],
   watch: {
     info() {
       console.log(this.info.manifest); // eslint-disable-line no-console

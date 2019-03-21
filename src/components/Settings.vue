@@ -1,5 +1,10 @@
 <template>
 <div class="settings">
+  <label for="player">Player</label>
+  <select v-model="selectedPlayer" class="u-full-width" @change="$emit('changePlayer', selectedPlayer)">
+    <option v-for="o in players" :key="o.id" :value="o.component">{{o.name}}</option>
+  </select>
+
   <label for="drm">Select Media</label>
   <select v-model="url" class="u-full-width">
     <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
@@ -43,6 +48,7 @@ const {
   defaultLicenseUrl,
   defaultDrm,
   mediaItems,
+  players,
 } = config;
 
 export default {
@@ -50,10 +56,12 @@ export default {
   components: {},
   data() {
     return {
+      players,
+      selectedPlayer: 'ShakaPlayer',
+      mediaItems,
       url: defaultUrl,
       licenseUrl: defaultLicenseUrl,
       drm: defaultDrm,
-      mediaItems,
     };
   },
   computed: {

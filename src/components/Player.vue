@@ -1,8 +1,8 @@
 <template>
   <div class="player container">
 
-    <!-- Player & Controls -->
-    <div class="video-container">
+    <!-- Players -->
+    <div class="video-container" v-if="selectedPlayer === 'ShakaPlayer'">
       <ShakaPlayer
         ref="player"
         :controls="controls"
@@ -10,6 +10,16 @@
         v-on:log="log"
       />
     </div>
+    <div class="video-container" v-else-if="selectedPlayer === 'HasPlayer'">
+      <HasPlayer
+        ref="player"
+        :controls="controls"
+        :autoplay="autoplay"
+        v-on:log="log"
+      />
+    </div>
+
+    <!-- Controls -->
     <Controls
       :video="video"
       v-on:play="play"
@@ -17,14 +27,12 @@
     />
 
     <!-- Probe & Settings -->
-    <Probe :info="probe"/>
+    <Probe :player="selectedPlayer" :info="probe"/>
     <Settings
       v-on:load="load"
       v-on:unload="unload"
+      v-on:changePlayer="onChangePlayer"
     />
-
-    <!-- <button v-on:click="play">play</button>
-    <button v-on:click="pause">pause</button> -->
 
     <!-- Logger -->
     <Log v-bind:logs="logs" />
@@ -38,6 +46,7 @@ import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
 import ShakaPlayer from '@/components/players/ShakaPlayer.vue';
+import HasPlayer from '@/components/players/HasPlayer.vue';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
 
@@ -49,10 +58,12 @@ export default {
     Probe,
     Settings,
     ShakaPlayer,
+    HasPlayer,
   },
   props: {},
   data() {
     return {
+      selectedPlayer: 'ShakaPlayer',
       autoplay: true,
       controls: true,
       logs: [],
@@ -66,6 +77,12 @@ export default {
   },
   mounted() {
     this.video = this.$refs.player.video;
+  },
+  watch: {
+    selectedPlayer() {
+      console.log('selected player changed');
+      this.video = this.$refs.player.video;
+    },
   },
   methods: {
     init() {
@@ -85,6 +102,10 @@ export default {
     pause() {
       const { video } = this.$refs.player;
       video.pause();
+    },
+    onChangePlayer(event) {
+      this.log('[player] - changeplayer', event);
+      this.selectedPlayer = event;
     },
     probeData() {
       this.log('[player] - probeSupport');
@@ -108,7 +129,7 @@ export default {
 }
 
 .player .video-container {
-  height: 480px;
+  /* height: 480px; */
   margin: 0 auto;
   margin-bottom: 20px;
 }

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "gh-pages": "^2.0.1",
+    "hasplayer.js": "^1.15.1",
     "shaka-player": "^2.4.7",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2"

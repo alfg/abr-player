@@ -64,6 +64,7 @@ export default {
   watch: {
     video() {
       // Initialize when video is ready.
+      console.log('video change');
       this.init();
     },
   },
