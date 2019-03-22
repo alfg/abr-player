@@ -37,16 +37,31 @@ export default {
       shaka.polyfill.installAll();
       const { video } = this.$refs;
       this.video = video;
+
+      this.configure();
     },
-    configure() {},
-    load(url) {
+    configure() {
       // Create player.
       this.player = new shaka.Player(this.video);
       this.setConfiguration();
-
+      this.setPlayerEvents();
+    },
+    setPlayerEvents() {
+      this.player.addEventListener('adaptation', this.onAdaptationEvent);
+    },
+    load(url) {
       // Load url.
       this.player.load(url).then(() => {
         this.log('[ShakaPlayer] - video loaded');
+
+        // console.log(this.player.getBufferedInfo());
+        // console.log(this.player.getManifest());
+        // console.log(this.player.getStats());
+        // console.log(this.player.getVariantTracks());
+        // console.log(this.player.keySystem());
+
+        // Populate tracks.
+        this.getTracks();
       }).catch((err) => {
         this.log('[ShakaPlayer] - error ', err);
       });
@@ -75,6 +90,34 @@ export default {
           servers: config.licenseServers,
         },
       });
+    },
+    selectTrack(id) {
+      this.log('[ShakaPlayer] - selectTrack', id);
+      this.player.selectVariantTrack({ id });
+    },
+    getTracks() {
+      const tracks = this.player.getVariantTracks();
+      let newTracks = [];
+
+      tracks.forEach((o) => {
+        const t = {
+          id: o.id,
+          name: o.bandwidth,
+          active: o.active,
+        };
+        newTracks.push(t);
+      });
+
+      // Sort by name;
+      newTracks = newTracks.sort((a, b) => (
+        a.name - b.name
+      ));
+      this.$emit('tracks', newTracks);
+    },
+    onAdaptationEvent(event) {
+      this.log('[ShakaPlayer:onAdaptationEvent]', event);
+      this.getTracks();
+      // this.$emit('adaptation');
     },
     log(...message) {
       this.$emit('log', ...message);

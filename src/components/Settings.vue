@@ -1,17 +1,24 @@
 <template>
 <div class="settings">
-  <label for="player">Player</label>
-  <select
-    v-model="selectedPlayer"
-    class="u-full-width"
-    @change="$emit('changePlayer', selectedPlayer)">
-    <option v-for="o in players" :key="o.id" :value="o.component">{{o.name}}</option>
-  </select>
+  <h4>Settings</h4>
+  <div class="row">
+    <div class="four columns">
+      <label for="player">Player</label>
+      <select
+        v-model="selectedPlayer"
+        class="u-full-width"
+        @change="$emit('changePlayer', selectedPlayer)">
+        <option v-for="o in players" :key="o.id" :value="o.component">{{o.name}}</option>
+      </select>
+    </div>
 
-  <label for="drm">Select Media</label>
-  <select v-model="url" class="u-full-width">
-    <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
-  </select>
+    <div class="eight columns">
+      <label for="drm">Select Media</label>
+      <select v-model="url" class="u-full-width">
+        <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
+      </select>
+    </div>
+  </div>
 
   <div v-if="url === '' || isCustom">
     <label>Media URL</label>
@@ -97,16 +104,11 @@ export default {
 </script>
 
 <style scoped>
-.settings button {
-  margin: 0 2px;
-}
-
-/* .settings-buttons {
-  display: inline-block;
+.settings {
   margin-bottom: 10px;
 }
 
-.settings-buttons span {
-  margin-left: 10px;
-} */
+.settings button {
+  margin: 0 2px;
+}
 </style>

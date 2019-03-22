@@ -7,6 +7,7 @@
         ref="player"
         :controls="controls"
         :autoplay="autoplay"
+        v-on:tracks="onGetTracks"
         v-on:log="log"
       />
     </div>
@@ -34,6 +35,12 @@
       v-on:changePlayer="onChangePlayer"
     />
 
+    <!-- Player Info -->
+    <Info
+      :tracks="tracks"
+      v-on:changeTrack="onChangeTrack"
+    />
+
     <!-- Logger -->
     <Log v-bind:logs="logs" />
   </div>
@@ -42,6 +49,7 @@
 <script>
 import shaka from 'shaka-player';
 import Controls from '@/components/Controls.vue';
+import Info from '@/components/Info.vue';
 import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
@@ -55,6 +63,7 @@ export default {
   components: {
     Controls,
     Log,
+    Info,
     Probe,
     Settings,
     ShakaPlayer,
@@ -65,10 +74,11 @@ export default {
     return {
       selectedPlayer: 'ShakaPlayer',
       autoplay: true,
-      controls: true,
+      controls: false,
       logs: [],
       probe: null,
       video: null,
+      tracks: [],
     };
   },
   computed: {},
@@ -113,6 +123,15 @@ export default {
         this.probe = data;
       });
     },
+    onGetTracks(event) {
+      this.log('[player] - onGetTracks', event);
+      this.tracks = event;
+    },
+    onChangeTrack(event) {
+      this.log('[player] - onChangeTrack', event);
+      this.$refs.player.selectTrack(event);
+      // this.tracks = event;
+    },
     log(...message) {
       console.log(message.join(' ')); // eslint-disable-line no-console
       // logs gets updated and passed to <Log /> prop.
@@ -130,7 +149,6 @@ export default {
 .player .video-container {
   /* height: 480px; */
   margin: 0 auto;
-  margin-bottom: 20px;
 }
 
 .player video {

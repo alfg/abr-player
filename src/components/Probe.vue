@@ -1,96 +1,94 @@
 <template>
-  <div class="probe row">
+  <div class="probe">
+    <h4>Probe</h4>
+    <div class="row">
+      <div class="two columns">
+      <ul>
+        <li>
+          <span class="material-icons checked" v-if="player === 'ShakaPlayer'">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          Shaka Player
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="player === 'HasPlayer'">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          HasPlayer
+        </li>
+      </ul>
+      </div>
 
-    <div class="two columns">
-    <h4>Player</h4>
-    <ul>
-      <li>
-        <span class="material-icons checked" v-if="player === 'ShakaPlayer'">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        Shaka Player
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="player === 'HasPlayer'">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        HasPlayer
-      </li>
-    </ul>
-    </div>
+      <div class="two columns">
+      <ul>
+        <li>
+          <span class="material-icons checked" v-if="supportsDASH">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          DASH
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsMSS">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          MSS
+        <li>
+          <span class="material-icons checked" v-if="supportsHLS">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          HLS
+        </li>
+      </ul>
+      </div>
 
-    <div class="two columns">
-    <h4>Manifest</h4>
-    <ul>
-      <li>
-        <span class="material-icons checked" v-if="supportsDASH">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        DASH
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsMSS">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        MSS
-      <li>
-        <span class="material-icons checked" v-if="supportsHLS">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        HLS
-      </li>
-    </ul>
-    </div>
+      <div class="two columns">
+      <ul>
+        <li>
+          <span class="material-icons checked" v-if="supportsWidevine">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          widevine
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsPlayready">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          playready
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsFairplay">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          fairplay
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsPrimetime">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          primetime
+        </li>
+      </ul>
+      </div>
 
-    <div class="two columns">
-    <h4>EME</h4>
-    <ul>
-      <li>
-        <span class="material-icons checked" v-if="supportsWidevine">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        widevine
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsPlayready">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        playready
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsFairplay">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        fairplay
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsPrimetime">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        primetime
-      </li>
-    </ul>
-    </div>
-
-    <div class="six columns">
-    <h4>MSE</h4>
-    <ul>
-      <li>
-        <span class="material-icons checked" v-if="supportsMp4Avc1">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        mp4/avc1
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsMp4Hevc">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        mp4/hevc
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsMp4Ec3">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        mp4/ec-3</li>
-      <li>
-        <span class="material-icons checked" v-if="supportsWebmVp8">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        webm/vp8
-      </li>
-      <li>
-        <span class="material-icons checked" v-if="supportsWebmVp9">check_circle</span>
-        <span class="material-icons" v-else>close</span>
-        webm/vp9
-      </li>
-    </ul>
+      <div class="six columns">
+      <ul>
+        <li>
+          <span class="material-icons checked" v-if="supportsMp4Avc1">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          mp4/avc1
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsMp4Hevc">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          mp4/hevc
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsMp4Ec3">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          mp4/ec-3</li>
+        <li>
+          <span class="material-icons checked" v-if="supportsWebmVp8">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          webm/vp8
+        </li>
+        <li>
+          <span class="material-icons checked" v-if="supportsWebmVp9">check_circle</span>
+          <span class="material-icons" v-else>close</span>
+          webm/vp9
+        </li>
+      </ul>
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header container">
     <h1>vue-player</h1>
   </div>
 </template>
@@ -11,6 +11,10 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 3rem;
+  text-align: left;
+}
 .logo {
   width: 48px;
 }

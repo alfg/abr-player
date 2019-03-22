@@ -1,8 +1,11 @@
 <template>
-  <div class="log" ref="log">
-    <div v-for="l in logs" :key="l.id">
-      <div class="log-item">
-        <span>{{ l }}</span>
+  <div>
+    <h4>Log</h4>
+    <div class="log" ref="log">
+      <div v-for="l in logs" :key="l.id">
+        <div class="log-item">
+          <span>{{ l }}</span>
+        </div>
       </div>
     </div>
   </div>
