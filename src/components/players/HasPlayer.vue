@@ -57,9 +57,9 @@ export default {
       // Create player.
       this.player.load(stream);
 
-      console.log(this.player.getMetricsFor('video'));
-      console.log(this.player.getQualityFor('video'));
-      console.log(this.player.getVideoBitrates());
+      // console.log(this.player.getMetricsFor('video'));
+      // console.log(this.player.getQualityFor('video'));
+      // console.log(this.player.getVideoBitrates());
     },
     unload() {
       this.log('[HasPlayer] - unload');

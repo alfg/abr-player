@@ -15,7 +15,15 @@
     <div class="eight columns">
       <label for="drm">Select Media</label>
       <select v-model="url" class="u-full-width">
-        <option v-for="o in mediaItems" :key="o.id" :value="o.url">{{o.name}}</option>
+        <optgroup label="DASH">
+          <option v-for="o in mediaItems.dash" :key="o.id" :value="o.url">{{o.name}}</option>
+        </optgroup>
+        <optgroup label="Smooth Streaming">
+          <option v-for="o in mediaItems.mss" :key="o.id" :value="o.url">{{o.name}}</option>
+        </optgroup>
+        <optgroup label="Custom">
+          <option v-for="o in mediaItems.custom" :key="o.id" :value="o.url">{{o.name}}</option>
+        </optgroup>
       </select>
     </div>
   </div>

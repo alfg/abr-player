@@ -8,6 +8,8 @@
         :controls="controls"
         :autoplay="autoplay"
         v-on:tracks="onGetTracks"
+        v-on:stats="onStats"
+        v-on:buffer="onBuffer"
         v-on:log="log"
       />
     </div>
@@ -38,7 +40,10 @@
     <!-- Player Info -->
     <Info
       :tracks="tracks"
+      :stats="stats"
+      :buffer="buffer"
       v-on:changeTrack="onChangeTrack"
+      v-on:onEnableAdaptationChange="onEnableAdaptation"
     />
 
     <!-- Logger -->
@@ -79,6 +84,8 @@ export default {
       probe: null,
       video: null,
       tracks: [],
+      stats: {},
+      buffer: '0',
     };
   },
   computed: {},
@@ -98,6 +105,19 @@ export default {
       this.log('[player] - init');
       this.probeData();
     },
+    onChangePlayer(event) {
+      this.log('[player] - changeplayer', event);
+      this.selectedPlayer = event;
+    },
+    probeData() {
+      this.log('[player] - probeSupport');
+      // Uses shaka to probe browser support data.
+      shaka.Player.probeSupport().then((data) => {
+        this.probe = data;
+      });
+    },
+
+    // Common player methods.
     load(url) {
       this.$refs.player.load(url);
     },
@@ -112,26 +132,30 @@ export default {
       const { video } = this.$refs.player;
       video.pause();
     },
-    onChangePlayer(event) {
-      this.log('[player] - changeplayer', event);
-      this.selectedPlayer = event;
-    },
-    probeData() {
-      this.log('[player] - probeSupport');
-      // Uses shaka to probe browser support data.
-      shaka.Player.probeSupport().then((data) => {
-        this.probe = data;
-      });
-    },
+
+    // Common player events.
     onGetTracks(event) {
-      this.log('[player] - onGetTracks', event);
+      this.log('[player] - onGetTracks');
       this.tracks = event;
     },
     onChangeTrack(event) {
       this.log('[player] - onChangeTrack', event);
       this.$refs.player.selectTrack(event);
-      // this.tracks = event;
     },
+    onEnableAdaptation(event) {
+      this.log('[player] - onEnableAdaptation', event);
+      this.$refs.player.enableAdaptation(event);
+    },
+    onStats(event) {
+      // this.log('[player] - onStats');
+      this.stats = event;
+    },
+    onBuffer(event) {
+      // this.log('[player] - onBuffer');
+      this.buffer = event;
+    },
+
+    // Logger.
     log(...message) {
       console.log(message.join(' ')); // eslint-disable-line no-console
       // logs gets updated and passed to <Log /> prop.

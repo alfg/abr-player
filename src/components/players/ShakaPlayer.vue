@@ -48,6 +48,8 @@ export default {
     },
     setPlayerEvents() {
       this.player.addEventListener('adaptation', this.onAdaptationEvent);
+      this.video.addEventListener('timeupdate', this.onTimeUpdate);
+      this.video.addEventListener('timeupdate', this.onBufferedData);
     },
     load(url) {
       // Load url.
@@ -114,11 +116,38 @@ export default {
       ));
       this.$emit('tracks', newTracks);
     },
+    enableAdaptation(enabled) {
+      this.log('[ShakaPlayer] - enableAdaptation', enabled);
+      this.player.configure({
+        abr: { enabled },
+      });
+    },
     onAdaptationEvent(event) {
       this.log('[ShakaPlayer:onAdaptationEvent]', event);
       this.getTracks();
       // this.$emit('adaptation');
     },
+    onTimeUpdate() {
+      const stats = this.player.getStats();
+      this.$emit('stats', stats);
+    },
+    onBufferedData() {
+      let behind = 0;
+      let ahead = 0;
+      const { currentTime, buffered } = this.video;
+      for (let i = 0; i < buffered.length; i++) {
+        if (buffered.start(i) <= currentTime && buffered.end(i) >= currentTime) {
+          ahead = buffered.end(i) - currentTime;
+          behind = currentTime - buffered.start(i);
+          break;
+        }
+      }
+      const data = `- ${behind.toFixed(0)}s / + ${ahead.toFixed(0)}s`;
+      this.$emit('buffer', data);
+    },
+
+
+    // Logger.
     log(...message) {
       this.$emit('log', ...message);
     },
