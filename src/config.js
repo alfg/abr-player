@@ -46,11 +46,11 @@ const config = {
     mss: [
       {
         name: 'Super Speedway (Smooth Streaming Clear)',
-        url: 'http://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
+        url: 'https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest',
       },
       {
         name: 'Super Speedway (Smooth Streaming PlayReady)',
-        url: 'http://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest',
+        url: 'https://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest',
       },
     ],
     custom: [

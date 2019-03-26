@@ -1,6 +1,6 @@
 <template>
   <div class="header container">
-    <h1>vue-player</h1>
+    <h1>vue player</h1>
   </div>
 </template>
 

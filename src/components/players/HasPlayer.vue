@@ -120,7 +120,6 @@ export default {
       this.$emit('stats', data);
     },
     onBufferLevel(event) {
-      this.log('[HasPlayer:onBufferLevel]', JSON.stringify(event));
       const data = {
         buffer: event.detail.level,
       };
