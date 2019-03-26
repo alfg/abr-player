@@ -1,6 +1,6 @@
 <template>
   <div class="probe">
-    <h4>Probe</h4>
+    <h4>Browser Compatibility</h4>
     <div class="row">
       <div class="two columns">
       <ul>

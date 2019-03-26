@@ -14,8 +14,6 @@
         v-if="video && selectedPlayer === 'ShakaPlayer'"
         ref="player"
         :video="video"
-        :controls="controls"
-        :autoplay="autoplay"
         v-on:tracks="onGetTracks"
         v-on:stats="onStats"
         v-on:buffer="onBuffer"
@@ -25,8 +23,9 @@
         v-else-if="video && selectedPlayer === 'HasPlayer'"
         ref="player"
         :video="video"
-        :controls="controls"
-        :autoplay="autoplay"
+        v-on:tracks="onGetTracks"
+        v-on:stats="onStats"
+        v-on:buffer="onBuffer"
         v-on:log="log"
       />
     </div>

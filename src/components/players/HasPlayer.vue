@@ -48,9 +48,14 @@ export default {
       // Create player.
       this.player.load(stream);
 
-      // console.log(this.player.getMetricsFor('video'));
-      // console.log(this.player.getQualityFor('video'));
-      // console.log(this.player.getVideoBitrates());
+      this.setPlayerEvents();
+    },
+    setPlayerEvents() {
+      // http://orange-opensource.github.io/hasplayer.js/development/doc/jsdoc/MediaPlayer.html#event
+      this.player.addEventListener('play_bitrate', this.onAdaptationEvent);
+      this.player.addEventListener('download_bitrate', this.onDownloadBitrate);
+      this.player.addEventListener('bufferLevel_updated', this.onBufferLevel);
+      this.video.addEventListener('loadeddata', this.onLoadedData);
     },
     unload() {
       this.log('[HasPlayer] - unload');
@@ -60,11 +65,68 @@ export default {
       }
     },
     destroy() {
-      // this.log('[HasPlayer] - destroy');
-      // if (this.player) {
-      //   this.player.destroy();
-      //   this.player = null;
-      // }
+      this.log('[HasPlayer] - destroy');
+      if (this.player) {
+        this.player.reset();
+        this.player = null;
+      }
+    },
+    selectTrack(id) {
+      this.log('[HasPlayer] - selectTrack', id);
+      this.player.setQualityFor('video', id);
+    },
+    getTracks() {
+      this.log('[HasPlayer] - getTracks');
+
+      const tracks = this.player.getVideoBitrates();
+      const activeTrack = tracks[this.player.getQualityFor('video')];
+
+      let newTracks = [];
+      tracks.forEach((o, i) => {
+        const t = {
+          id: i,
+          name: o,
+          active: o === activeTrack,
+        };
+        newTracks.push(t);
+      });
+
+      // Sort by name;
+      newTracks = newTracks.sort((a, b) => (
+        a.name - b.name
+      ));
+      this.$emit('tracks', newTracks);
+    },
+    enableAdaptation(enabled) {
+      this.log('[HasPlayer] - enableAdaptation', enabled);
+      this.player.setAutoSwitchQuality(enabled);
+    },
+    onLoadedData(event) {
+      this.log('[HasPlayer] - onLoadedData', JSON.stringify(event));
+      this.getTracks();
+    },
+    onAdaptationEvent(event) {
+      this.log('[HasPlayer:onAdaptationEvent]', JSON.stringify(event));
+      this.getTracks();
+      // this.$emit('adaptation');
+    },
+    onDownloadBitrate(event) {
+      this.log('[HasPlayer:onDownloadBitrate]', JSON.stringify(event));
+      const data = {
+        width: event.detail.width,
+        height: event.detail.height,
+        bitrate: event.detail.bitrate,
+      };
+      this.$emit('stats', data);
+    },
+    onBufferLevel(event) {
+      this.log('[HasPlayer:onBufferLevel]', JSON.stringify(event));
+      const data = {
+        buffer: event.detail.level,
+      };
+
+      const output = `+ ${data.buffer.toFixed(0)}s`;
+      this.$emit('buffer', output);
     },
     log(...message) {
       this.$emit('log', ...message);

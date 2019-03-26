@@ -120,7 +120,12 @@ export default {
     },
     onTimeUpdate() {
       const stats = this.player.getStats();
-      this.$emit('stats', stats);
+      const data = {
+        width: stats.width,
+        height: stats.height,
+        bitrate: stats.streamBandwidth,
+      };
+      this.$emit('stats', data);
     },
     onBufferedData() {
       let behind = 0;

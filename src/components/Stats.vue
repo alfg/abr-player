@@ -10,6 +10,10 @@
         <td>Buffered</td>
         <td>{{buffer}}</td>
       </tr>
+      <tr>
+        <td>Bitrate</td>
+        <td>{{stats.bitrate}}</td>
+      </tr>
     </table>
   </div>
 </template>
