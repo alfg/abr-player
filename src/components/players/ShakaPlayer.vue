@@ -1,11 +1,5 @@
 <template>
-  <div class="shaka-player">
-    <video
-      ref="video"
-      :controls="controls"
-      :autoPlay="autoplay"
-    />
-  </div>
+  <div class="shaka-player"></div>
 </template>
 
 <script>
@@ -16,11 +10,10 @@ export default {
   name: 'ShakaPlayer',
   components: {
   },
-  props: ['controls', 'autoplay'],
+  props: ['video'],
   data() {
     return {
       player: null,
-      video: null,
     };
   },
   watch: {},
@@ -35,8 +28,6 @@ export default {
       this.log('[ShakaPlayer] - version:', shaka.Player.version);
       this.log('[ShakaPlayer] - isBrowserSupported:', shaka.Player.isBrowserSupported());
       shaka.polyfill.installAll();
-      const { video } = this.$refs;
-      this.video = video;
 
       this.configure();
     },
@@ -135,7 +126,7 @@ export default {
       let behind = 0;
       let ahead = 0;
       const { currentTime, buffered } = this.video;
-      for (let i = 0; i < buffered.length; i++) {
+      for (let i = 0; i < buffered.length; i++) { // eslint-disable-line no-plusplus
         if (buffered.start(i) <= currentTime && buffered.end(i) >= currentTime) {
           ahead = buffered.end(i) - currentTime;
           behind = currentTime - buffered.start(i);

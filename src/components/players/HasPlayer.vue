@@ -1,11 +1,5 @@
 <template>
-  <div class="has-player">
-    <video
-      ref="video"
-      :controls="controls"
-      :autoPlay="autoplay"
-    />
-  </div>
+  <div class="has-player"></div>
 </template>
 
 <script>
@@ -16,11 +10,10 @@ export default {
   name: 'HasPlayer',
   components: {
   },
-  props: ['controls', 'autoplay'],
+  props: ['video'],
   data() {
     return {
       player: null,
-      video: null,
     };
   },
   watch: {},
@@ -32,8 +25,6 @@ export default {
   methods: {
     init() {
       this.log('[HasPlayer] - init');
-      const { video } = this.$refs;
-      this.video = video;
 
       this.player = new MediaPlayer();
       this.player.init(this.video);

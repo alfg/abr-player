@@ -2,9 +2,18 @@
   <div class="player container">
 
     <!-- Players -->
-    <div class="video-container" v-if="selectedPlayer === 'ShakaPlayer'">
+    <div class="video-container">
+
+      <!-- Video container for players -->
+      <video
+        ref="video"
+        :controls="controls"
+        :autoPlay="autoplay"
+      />
       <ShakaPlayer
+        v-if="video && selectedPlayer === 'ShakaPlayer'"
         ref="player"
+        :video="video"
         :controls="controls"
         :autoplay="autoplay"
         v-on:tracks="onGetTracks"
@@ -12,10 +21,10 @@
         v-on:buffer="onBuffer"
         v-on:log="log"
       />
-    </div>
-    <div class="video-container" v-else-if="selectedPlayer === 'HasPlayer'">
       <HasPlayer
+        v-else-if="video && selectedPlayer === 'HasPlayer'"
         ref="player"
+        :video="video"
         :controls="controls"
         :autoplay="autoplay"
         v-on:log="log"
@@ -24,7 +33,7 @@
 
     <!-- Controls -->
     <Controls
-      :video="video"
+      :video="this.$refs.video"
       v-on:play="play"
       v-on:pause="pause"
     />
@@ -37,14 +46,17 @@
       v-on:changePlayer="onChangePlayer"
     />
 
-    <!-- Player Info -->
-    <Info
+    <!-- Player Tracks -->
+    <Tracks
       :tracks="tracks"
       :stats="stats"
       :buffer="buffer"
       v-on:changeTrack="onChangeTrack"
       v-on:onEnableAdaptationChange="onEnableAdaptation"
     />
+
+    <!-- Player Stats -->
+    <Stats :stats="stats" :buffer="buffer" />
 
     <!-- Logger -->
     <Log v-bind:logs="logs" />
@@ -54,11 +66,12 @@
 <script>
 import shaka from 'shaka-player';
 import Controls from '@/components/Controls.vue';
-import Info from '@/components/Info.vue';
+import Tracks from '@/components/Tracks.vue';
 import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
 import ShakaPlayer from '@/components/players/ShakaPlayer.vue';
+import Stats from '@/components/Stats.vue';
 import HasPlayer from '@/components/players/HasPlayer.vue';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
@@ -68,11 +81,12 @@ export default {
   components: {
     Controls,
     Log,
-    Info,
+    Tracks,
     Probe,
     Settings,
     ShakaPlayer,
     HasPlayer,
+    Stats,
   },
   props: {},
   data() {
@@ -86,6 +100,7 @@ export default {
       tracks: [],
       stats: {},
       buffer: '0',
+      controlkey: 0,
     };
   },
   computed: {},
@@ -93,11 +108,13 @@ export default {
     this.init();
   },
   mounted() {
-    this.video = this.$refs.player.video;
+    // this.video = this.$refs.player.video;
+    this.video = this.$refs.video;
   },
   watch: {
     selectedPlayer() {
-      this.video = this.$refs.player.video;
+      // this.video = this.$refs.player.video;
+      // this.controlkey += 1;
     },
   },
   methods: {

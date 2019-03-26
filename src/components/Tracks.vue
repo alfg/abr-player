@@ -1,7 +1,5 @@
 <template>
-  <div class="info">
-    <h4>Info</h4>
-
+  <div class="tracks">
     <div v-if="tracks.length > 0">
       <label for="tracks">Tracks</label>
       <select
@@ -19,38 +17,24 @@
         <span class="label-body">Enable Adaptation</span>
       </label>
     </div>
-
-    <div>
-          Active Resolution: {{ resolution }}
-    </div>
-    <div>
-          Buffered: {{ buffer }}
-    </div>
-
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'info',
-  props: ['tracks', 'stats', 'buffer'],
+  name: 'tracks',
+  props: ['tracks'],
   data() {
     return {
       selectedTrack: '',
       enableAdaptation: true,
     };
   },
-  computed: {
-    resolution() {
-      return `${this.stats.width || 0} x ${this.stats.height || 0}`;
-    },
-  },
   watch: {
     tracks() {
       this.selectedTrack = this.tracks.find(o => o.active).id;
     },
-  },
-  methods: {
   },
 };
 </script>
