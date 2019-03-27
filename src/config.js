@@ -11,6 +11,10 @@ const config = {
       name: 'HasPlayer.js',
       component: 'HasPlayer',
     },
+    {
+      name: 'dash.js',
+      component: 'DashjsPlayer',
+    },
   ],
   mediaItems: {
     dash: [

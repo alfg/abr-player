@@ -28,6 +28,15 @@
         v-on:buffer="onBuffer"
         v-on:log="log"
       />
+      <DashjsPlayer
+        v-else-if="video && selectedPlayer === 'DashjsPlayer'"
+        ref="player"
+        :video="video"
+        v-on:tracks="onGetTracks"
+        v-on:stats="onStats"
+        v-on:buffer="onBuffer"
+        v-on:log="log"
+      />
     </div>
 
     <!-- Controls -->
@@ -72,6 +81,7 @@ import Settings from '@/components/Settings.vue';
 import ShakaPlayer from '@/components/players/ShakaPlayer.vue';
 import Stats from '@/components/Stats.vue';
 import HasPlayer from '@/components/players/HasPlayer.vue';
+import DashjsPlayer from '@/components/players/DashjsPlayer.vue';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
 
@@ -85,6 +95,7 @@ export default {
     Settings,
     ShakaPlayer,
     HasPlayer,
+    DashjsPlayer,
     Stats,
   },
   props: {},
