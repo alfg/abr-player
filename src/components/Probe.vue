@@ -5,7 +5,7 @@
       <div class="three columns">
       <ul>
         <li v-for="(value, key) in supportedDrms" :key="key">
-          <span class="material-icons checked" v-if="value !== null">check_circle</span>
+          <span class="material-icons checked" v-if="value">check_circle</span>
           <span class="material-icons" v-else>close</span>
           {{key}}
         </li>

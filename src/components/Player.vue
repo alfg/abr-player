@@ -72,16 +72,14 @@
 </template>
 
 <script>
-import shaka from 'shaka-player';
 import Controls from '@/components/Controls.vue';
 import Tracks from '@/components/Tracks.vue';
 import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
-import ShakaPlayer from '@/components/players/ShakaPlayer.vue';
 import Stats from '@/components/Stats.vue';
-import HasPlayer from '@/components/players/HasPlayer.vue';
-import DashjsPlayer from '@/components/players/DashjsPlayer.vue';
+import { ShakaPlayer, HasPlayer, DashjsPlayer } from '@/components/players';
+import utils from '@/lib/utils';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
 
@@ -138,8 +136,8 @@ export default {
     },
     probeData() {
       this.log('[player] - probeSupport');
-      // Uses shaka to probe browser support data.
-      shaka.Player.probeSupport().then((data) => {
+
+      utils.probeSupport().then((data) => {
         this.probe = data;
       });
     },
