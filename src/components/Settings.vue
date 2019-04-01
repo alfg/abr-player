@@ -15,14 +15,8 @@
     <div class="eight columns">
       <label for="drm">Select Media</label>
       <select v-model="url" class="u-full-width">
-        <optgroup label="DASH">
-          <option v-for="o in mediaItems.dash" :key="o.id" :value="o.url">{{o.name}}</option>
-        </optgroup>
-        <optgroup label="Smooth Streaming">
-          <option v-for="o in mediaItems.mss" :key="o.id" :value="o.url">{{o.name}}</option>
-        </optgroup>
-        <optgroup label="Custom">
-          <option v-for="o in mediaItems.custom" :key="o.id" :value="o.url">{{o.name}}</option>
+        <optgroup :label="o.name" v-for="o in sources.items" :key="o.id">
+          <option v-for="i in o.submenu" :key="i.id" :value="i.url">{{i.name}}</option>
         </optgroup>
       </select>
     </div>
@@ -52,7 +46,11 @@
   </div>
 
   <div class="control-buttons">
-    <button v-on:click="$emit('load', url)" class="button-primary">Load Media</button>
+    <button
+      class="button-primary"
+      v-on:click="$emit('load', { url, licenseUrl, drm })">
+      Load Media
+    </button>
     <button v-on:click="$emit('unload')">Unload</button>
   </div>
 </div>
@@ -60,12 +58,12 @@
 
 <script>
 import config from '@/config';
+import sources from '@/sources.json';
 
 const {
   defaultUrl,
   defaultLicenseUrl,
   defaultDrm,
-  mediaItems,
   players,
 } = config;
 
@@ -76,7 +74,7 @@ export default {
     return {
       players,
       selectedPlayer: 'ShakaPlayer',
-      mediaItems,
+      sources,
       url: defaultUrl,
       licenseUrl: defaultLicenseUrl,
       drm: defaultDrm,

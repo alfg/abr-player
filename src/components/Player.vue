@@ -143,8 +143,9 @@ export default {
     },
 
     // Common player methods.
-    load(url) {
-      this.$refs.player.load(url);
+    load(settings) {
+      const { url, licenseUrl, drm } = settings;
+      this.$refs.player.load(url, licenseUrl, drm);
     },
     unload() {
       this.$refs.player.unload();

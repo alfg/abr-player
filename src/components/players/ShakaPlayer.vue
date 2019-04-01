@@ -32,9 +32,9 @@ export default {
       this.configure();
     },
     configure() {
-      // Create player.
+      // Create player and bind event listeners.
       this.player = new shaka.Player(this.video);
-      this.setConfiguration();
+      // this.setConfiguration();
       this.setPlayerEvents();
     },
     setPlayerEvents() {
@@ -42,16 +42,15 @@ export default {
       this.video.addEventListener('timeupdate', this.onTimeUpdate);
       this.video.addEventListener('timeupdate', this.onBufferedData);
     },
-    load(url) {
+    load(url, licenseUrl, drm) {
+      // Set DRM (if provided).
+      if (drm) {
+        this.setProtection(licenseUrl, drm);
+      }
+
       // Load url.
       this.player.load(url).then(() => {
         this.log('[ShakaPlayer] - video loaded');
-
-        // console.log(this.player.getBufferedInfo());
-        // console.log(this.player.getManifest());
-        // console.log(this.player.getStats());
-        // console.log(this.player.getVariantTracks());
-        // console.log(this.player.keySystem());
 
         // Populate tracks.
         this.getTracks();
@@ -74,13 +73,21 @@ export default {
         this.player = null;
       }
     },
-    setConfiguration() {
-      this.setProtection();
-    },
-    setProtection() {
+    setProtection(licenseUrl, drm) {
+      const playreadyUrl = drm === 'playready' && licenseUrl
+        ? licenseUrl
+        : config.defaultLicenseServers['com.microsoft.playready'];
+
+      const widevineUrl = drm === 'widevine' && licenseUrl
+        ? licenseUrl
+        : config.defaultLicenseServers['com.widevine.alpha'];
+
       this.player.configure({
         drm: {
-          servers: config.licenseServers,
+          servers: {
+            'com.microsoft.playready': playreadyUrl,
+            'com.widevine.alpha': widevineUrl,
+          },
         },
       });
     },

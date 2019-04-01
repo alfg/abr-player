@@ -1,0 +1,67 @@
+{
+  "items": [
+    {
+      "name": "DASH",
+      "submenu": [
+        {
+          "name": "Tears of Steel (DASH Widevine)",
+          "url": "https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd"
+        },
+        {
+          "name": "Tears of Steel (DASH PlayReady)",
+          "url": "https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-playready.ism/.mpd"
+        },
+        {
+          "name": "Tears of Steel (DASH Clear)",
+          "url": "https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd"
+        },
+        {
+          "name": "Tears of Steel (DASH Clear) 2",
+          "url": "https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd2"
+        },
+        {
+          "name": "Angel One (multicodec, multilingual)",
+          "url": "https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd"
+        },
+        {
+          "name": "Angel One (multicodec, multilingual, Widevine)",
+          "url": "https://storage.googleapis.com/shaka-demo-assets/angel-one-widevine/dash.mpd"
+        },
+        {
+          "name": "Sintel 4k (multicodec)",
+          "url": "https://storage.googleapis.com/shaka-demo-assets/sintel/dash.mpd"
+        },
+        {
+          "name": "Big Buck Bunny",
+          "url": "https://dash.akamaized.net/dash264/TestCases/1c/qualcomm/2/MultiRate.mpd"
+        },
+        {
+          "name": "SegmentTemplate without manifest updates (livesim)",
+          "url": "https://livesim.dashif.org/livesim/testpic_2s/Manifest.mpd"
+        }
+      ]
+    },
+    {
+      "name": "MSS",
+      "submenu": [
+        {
+          "name": "Super Speedway (Smooth Streaming Clear)",
+          "url": "https://playready.directtaps.net/smoothstreaming/SSWSS720H264/SuperSpeedway_720.ism/Manifest"
+        },
+        {
+          "name": "Super Speedway (Smooth Streaming PlayReady)",
+          "url": "https://playready.directtaps.net/smoothstreaming/SSWSS720H264PR/SuperSpeedway_720.ism/Manifest"
+        }
+      ]
+    },
+    {
+      "name": "Custom",
+      "submenu": [
+        {
+          "name": "Custom",
+          "url": ""
+        }
+      ]
+    }
+  ]
+}

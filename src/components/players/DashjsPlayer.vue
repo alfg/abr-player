@@ -25,23 +25,31 @@ export default {
       this.log('[DashjsPlayer] - init');
 
       this.player = dashjs.MediaPlayer().create();
-      this.setProtection();
       this.log('[DashjsPlayer] - version:', this.player.getVersion());
     },
     configure() {},
-    setProtection() {
+    setProtection(licenseUrl, drm) {
+      const playreadyUrl = drm === 'playready' && licenseUrl
+        ? licenseUrl
+        : config.defaultLicenseServers['com.microsoft.playready'];
+
+      const widevineUrl = drm === 'widevine' && licenseUrl
+        ? licenseUrl
+        : config.defaultLicenseServers['com.widevine.alpha'];
+
       const protectionController = this.player.getProtectionController();
       const protData = {
         'com.widevine.alpha': {
-          serverURL: config.licenseServers['com.widevine.alpha'],
+          serverURL: widevineUrl,
         },
         'com.microsoft.playready': {
-          serverURL: config.licenseServers['com.microsoft.playready'],
+          serverURL: playreadyUrl,
         },
       };
       protectionController.setProtectionData(protData);
     },
-    load(url) {
+    load(url, licenseUrl, drm) {
+      this.setProtection(licenseUrl, drm);
       this.player.initialize(this.video, url, true);
       this.setPlayerEvents();
       this.setMetricInterval();

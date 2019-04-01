@@ -32,23 +32,34 @@ export default {
       this.log('[HasPlayer] - version:', this.player.getVersion());
       this.log('[HasPlayer] - DashJS version:', this.player.getVersionDashJS());
     },
-    configure() {
-    },
-    load(url) {
+    configure() {},
+    load(url, licenseUrl, drm) {
       const stream = {
         url,
-        protData: {
-          'com.microsoft.playready': {
-            laURL: config.licenseServers['com.microsoft.playready'],
-          },
-        },
       };
-      this.log('[HasPlayer - load', JSON.stringify(stream));
+
+      // Set protection data if DRM is provided.
+      if (drm) {
+        stream.protData = this.setProtData(licenseUrl, drm);
+      }
 
       // Create player.
+      this.log('[HasPlayer - load', JSON.stringify(stream));
       this.player.load(stream);
 
       this.setPlayerEvents();
+    },
+    setProtData(licenseUrl, drm) {
+      const playreadyUrl = drm === 'playready' && licenseUrl
+        ? licenseUrl
+        : config.defaultLicenseServers['com.microsoft.playready'];
+
+      const protData = {
+        'com.microsoft.playready': {
+          laURL: playreadyUrl,
+        },
+      };
+      return protData;
     },
     setPlayerEvents() {
       // http://orange-opensource.github.io/hasplayer.js/development/doc/jsdoc/MediaPlayer.html#event
