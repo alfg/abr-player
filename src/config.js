@@ -1,6 +1,6 @@
 const config = {
   defaultUrl: 'https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd',
-  defaultLicenseUrl: 'https://widevine-proxy.appspot.com/proxy',
+  defaultLicenseUrl: 'https://cwip-shaka-proxy.appspot.com/no_auth',
   defaultDrm: 'widevine',
   players: [
     {
