@@ -1,7 +1,7 @@
 # vue-player
 > Adaptive Streaming Test Player 
 
-<p align="center"><img src="src/assets/clapper.png"></img></p>
+<p align="center"><img src="src/assets/video.png"></img></p>
 
 https://alfg.github.io/vue-player/
 
