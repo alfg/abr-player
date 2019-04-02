@@ -20,6 +20,10 @@
           "url": "https://storage.googleapis.com/shaka-demo-assets/tos-ttml/dash.mpd2"
         },
         {
+          "name": "Tears of Steel (DASH Clear HEVC)",
+          "url": "https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-hevc.ism/.mpd"
+        },
+        {
           "name": "Angel One (multicodec, multilingual)",
           "url": "https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd"
         },

@@ -14,18 +14,22 @@
 
     <div class="eight columns">
       <label for="drm">Select Media</label>
-      <select v-model="url" class="u-full-width">
+      <select v-model="selectedMedia" class="u-full-width">
         <optgroup :label="o.name" v-for="o in sources.items" :key="o.id">
-          <option v-for="i in o.submenu" :key="i.id" :value="i.url">{{i.name}}</option>
+          <option
+            v-for="i in o.submenu"
+            :key="i.id"
+            :value="{ name: i.name, url: i.url }"
+          >{{i.name}}</option>
         </optgroup>
       </select>
     </div>
   </div>
 
-  <div v-if="url === '' || isCustom">
+  <div v-if="selectedMedia.name === 'Custom' || isCustom">
     <label>Media URL</label>
     <input
-      v-model="url"
+      v-model="selectedMedia.url"
       class="u-full-width"
       type="text"
     />
@@ -48,7 +52,7 @@
   <div class="control-buttons">
     <button
       class="button-primary"
-      v-on:click="$emit('load', { url, licenseUrl, drm })">
+      v-on:click="$emit('load', { url: selectedMedia.url, licenseUrl, drm })">
       Load Media
     </button>
     <button v-on:click="$emit('unload')">Unload</button>
@@ -61,7 +65,7 @@ import config from '@/config';
 import sources from '@/sources.json';
 
 const {
-  defaultUrl,
+  defaultMedia,
   defaultLicenseUrl,
   defaultDrm,
   players,
@@ -72,10 +76,10 @@ export default {
   components: {},
   data() {
     return {
+      sources,
       players,
       selectedPlayer: 'ShakaPlayer',
-      sources,
-      url: defaultUrl,
+      selectedMedia: defaultMedia,
       licenseUrl: defaultLicenseUrl,
       drm: defaultDrm,
     };
@@ -96,7 +100,7 @@ export default {
     setQueryParams() {
       // Check if query params are set.
       if (this.$route.query.url) {
-        this.url = this.$route.query.url;
+        this.selectedMedia.url = this.$route.query.url;
       }
       if (this.$route.query.licenseUrl) {
         this.licenseUrl = this.$route.query.licenseUrl;
