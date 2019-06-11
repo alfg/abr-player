@@ -12,19 +12,19 @@
     "dashjs": "^2.9.3",
     "gh-pages": "^2.0.1",
     "hasplayer.js": "^1.15.1",
-    "shaka-player": "^2.4.7",
-    "vue": "^2.6.6",
-    "vue-router": "^3.0.2"
+    "shaka-player": "^2.5.2",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-plugin-eslint": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^5.8.0",
+    "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "vue-template-compiler": "^2.5.21"
+    "vue-template-compiler": "^2.6.10"
   },
   "homepage": "https://alfg.github.io/vue-player",
   "eslintConfig": {
