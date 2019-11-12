@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import config from '@/config';
 import MediaPlayer from 'hasplayer.js';
+import config from '@/config';
 
 export default {
   name: 'HasPlayer',

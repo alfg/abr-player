@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import config from '@/config';
 import dashjs from 'dashjs';
+import config from '@/config';
 
 export default {
   name: 'DashjsPlayer',
