@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "dashjs": "^2.9.3",
-    "gh-pages": "^2.0.1",
     "hasplayer.js": "^1.15.1",
     "shaka-player": "^2.5.2",
     "vue": "^2.6.10",
@@ -24,6 +23,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^6.5.1",
     "eslint-plugin-vue": "^5.2.3",
+    "gh-pages": "^2.0.1",
     "vue-template-compiler": "^2.6.10"
   },
   "homepage": "https://alfg.github.io/vue-player",
