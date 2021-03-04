@@ -54,6 +54,7 @@ export default {
       const medias = [
         'video/mp4; codecs="avc1.42E01E"',
         'video/mp4; codecs="hev1.1.6.L93.90"',
+        'video/mp4; codecs="hev1.1.6.L90.90"',
         'video/mp4; codecs="hvc1.1.6.L93.90"',
         'audio/mp4; codecs="ac-3"',
         'audio/mp4; codecs="ec-3"',

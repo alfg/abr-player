@@ -1,5 +1,5 @@
 {
-  "name": "vue-player",
+  "name": "abr-player",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -26,7 +26,7 @@
     "gh-pages": "^2.0.1",
     "vue-template-compiler": "^2.6.10"
   },
-  "homepage": "https://alfg.github.io/vue-player",
+  "homepage": "https://alfg.github.io/abr-player",
   "eslintConfig": {
     "root": true,
     "env": {

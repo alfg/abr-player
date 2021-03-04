@@ -2,7 +2,7 @@
   <div class="footer">
     <ul>
       <li>View the source on
-        <a href="http://github.com/alfg/vue-player">Github</a>
+        <a href="http://github.com/alfg/abr-player">Github</a>
       </li>
     </ul>
   </div>

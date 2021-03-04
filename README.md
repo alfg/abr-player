@@ -1,9 +1,9 @@
-# vue-player
+# abr-player
 > Adaptive Streaming Test Player 
 
 <p align="center"><img src="src/assets/video.png"></img></p>
 
-https://alfg.github.io/vue-player/
+https://alfg.github.io/abr-player/
 
 ## Players
 * Shaka Player
@@ -14,7 +14,7 @@ https://alfg.github.io/vue-player/
 * More players and player functionality.
 
 ## Development
-`vue-player` is built with [Vue.js](https://vuejs.org) and the APIs of each supported player.
+`abr-player` is built with [Vue.js](https://vuejs.org) and the APIs of each supported player.
 
 * [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/index.html)
 * [HasPlayer.js](http://orange-opensource.github.io/hasplayer.js/development/doc/jsdoc/index.html)
@@ -40,11 +40,11 @@ npm run deploy
 
 ### Docker
 ```
-docker build -t vue-player .
-docker run -it -p 8080:80 --rm vue-player
+docker build -t abr-player .
+docker run -it -p 8080:80 --rm abr-player
 ```
 
-* Load `http://localhost:8080/vue-player` in a web browser.
+* Load `http://localhost:8080/abr-player` in a web browser.
 
 ## Resources
 * [Shaka Player](https://shaka-player-demo.appspot.com/docs/api/index.html)
