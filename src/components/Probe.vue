@@ -41,7 +41,7 @@ export default {
       ];
       const drm = this.info && this.info.drm;
       if (drm) {
-        const filtered = drms.filter(key => drms.includes(key))
+        const filtered = drms.filter((key) => drms.includes(key))
           .reduce((obj, key) => {
             obj[key] = drm[key]; // eslint-disable-line no-param-reassign
             return obj;
@@ -66,7 +66,7 @@ export default {
       ];
       const media = this.info && this.info.media;
       if (media) {
-        const filtered = medias.filter(key => medias.includes(key))
+        const filtered = medias.filter((key) => medias.includes(key))
           .reduce((obj, key) => {
             obj[key] = media[key]; // eslint-disable-line no-param-reassign
             return obj;

@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     tracks() {
-      this.selectedTrack = this.tracks.find(o => o.active).id;
+      this.selectedTrack = this.tracks.find((o) => o.active).id;
     },
   },
 };

@@ -43,6 +43,7 @@ export default {
   props: ['video'],
   data() {
     return {
+      player: null,
       loaded: false,
       playing: false,
       seeking: false,
@@ -64,6 +65,7 @@ export default {
   watch: {
     video() {
       // Initialize when video is ready.
+      this.player = this.video;
       this.init();
     },
   },
@@ -76,27 +78,27 @@ export default {
 
     setPlayerEvents() {
       // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
-      this.video.addEventListener('playing', this.onPlaying);
-      this.video.addEventListener('pause', this.onPause);
-      this.video.addEventListener('durationchange', this.onDurationChange);
-      this.video.addEventListener('timeupdate', this.onTimeUpdate);
-      this.video.addEventListener('volumechange', this.onVolumeChange);
+      this.player.addEventListener('playing', this.onPlaying);
+      this.player.addEventListener('pause', this.onPause);
+      this.player.addEventListener('durationchange', this.onDurationChange);
+      this.player.addEventListener('timeupdate', this.onTimeUpdate);
+      this.player.addEventListener('volumechange', this.onVolumeChange);
     },
 
     play() {
-      this.video.play();
+      this.player.play();
     },
 
     pause() {
-      this.video.pause();
+      this.player.pause();
     },
 
     stop() {
-      this.video.stop();
+      this.player.stop();
     },
 
     seekTo(value) {
-      this.video.currentTime = value;
+      this.player.currentTime = value;
     },
 
     setMute() {
@@ -107,7 +109,7 @@ export default {
       } else {
         this.volume = this.savedVolume;
       }
-      this.video.muted = this.muted;
+      this.player.muted = this.muted;
     },
 
     onPlaying() {
@@ -127,10 +129,10 @@ export default {
 
     onVolumeChange(event) {
       if (event.target && event.target.value) {
-        this.video.volume = parseFloat(event.target.value);
+        this.player.volume = parseFloat(event.target.value);
         this.volume = event.target.value;
       } else if (event.target && event.target.volume) {
-        this.video.volume = parseFloat(event.target.volume);
+        this.player.volume = parseFloat(event.target.volume);
         this.volume = event.target.volume;
       }
       this.muted = this.volume === '0';

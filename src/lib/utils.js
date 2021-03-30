@@ -103,7 +103,7 @@ const utils = {
       }
     };
 
-    const tests = testKeySystems.map(keySystem => testSystem(keySystem));
+    const tests = testKeySystems.map((keySystem) => testSystem(keySystem));
     return Promise.all(tests).then(() => utils.asObject(support));
   },
 

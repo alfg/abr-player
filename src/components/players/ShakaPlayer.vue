@@ -149,7 +149,6 @@ export default {
       this.$emit('buffer', data);
     },
 
-
     // Logger.
     log(...message) {
       this.$emit('log', ...message);
