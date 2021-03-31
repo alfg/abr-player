@@ -1,5 +1,5 @@
 # abr-player
-> Adaptive Streaming Test Player 
+Adaptive Streaming Player for testing your ABR streams.
 
 <p align="center"><img src="src/assets/video.png"></img></p>
 
@@ -9,9 +9,6 @@ https://alfg.github.io/abr-player/
 * Shaka Player
 * HasPlayer.js
 * Dash.js Reference Player
-
-## TODO
-* More players and player functionality.
 
 ## Development
 `abr-player` is built with [Vue.js](https://vuejs.org) and the APIs of each supported player.

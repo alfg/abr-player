@@ -34,7 +34,6 @@ export default {
     configure() {
       // Create player and bind event listeners.
       this.player = new shaka.Player(this.video);
-      // this.setConfiguration();
       this.setPlayerEvents();
     },
     setPlayerEvents() {
@@ -43,6 +42,10 @@ export default {
       this.video.addEventListener('timeupdate', this.onBufferedData);
     },
     load(url, licenseUrl, drm) {
+      if (!this.player) {
+        this.init();
+      }
+
       // Set DRM (if provided).
       if (drm) {
         this.setProtection(licenseUrl, drm);
@@ -60,6 +63,8 @@ export default {
     },
     unload() {
       this.log('[ShakaPlayer] - unload');
+      this.video.removeEventListener('timeupdate', this.onTimeUpdate);
+      this.video.removeEventListener('timeupdate', this.onBufferedData);
       if (this.player) {
         this.player.unload();
         this.player.destroy();
@@ -120,8 +125,9 @@ export default {
         abr: { enabled },
       });
     },
-    onAdaptationEvent(event) {
-      this.log('[ShakaPlayer:onAdaptationEvent]', event);
+    onAdaptationEvent() {
+      const stats = this.player.getStats();
+      this.log('[ShakaPlayer:onAdaptationEvent]', stats.streamBandwidth);
       this.getTracks();
       // this.$emit('adaptation');
     },

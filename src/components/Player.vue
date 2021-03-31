@@ -37,6 +37,15 @@
         v-on:buffer="onBuffer"
         v-on:log="log"
       />
+      <HlsjsPlayer
+        v-else-if="video && selectedPlayer === 'HlsjsPlayer'"
+        ref="player"
+        :video="video"
+        v-on:tracks="onGetTracks"
+        v-on:stats="onStats"
+        v-on:buffer="onBuffer"
+        v-on:log="log"
+      />
     </div>
 
     <!-- Controls -->
@@ -78,7 +87,9 @@ import Log from '@/components/Log.vue';
 import Probe from '@/components/Probe.vue';
 import Settings from '@/components/Settings.vue';
 import Stats from '@/components/Stats.vue';
-import { ShakaPlayer, HasPlayer, DashjsPlayer } from '@/components/players';
+import {
+  ShakaPlayer, HasPlayer, DashjsPlayer, HlsjsPlayer,
+} from '@/components/players';
 import utils from '@/lib/utils';
 import '@/assets/normalize.css';
 import '@/assets/skeleton.css';
@@ -94,6 +105,7 @@ export default {
     ShakaPlayer,
     HasPlayer,
     DashjsPlayer,
+    HlsjsPlayer,
     Stats,
   },
   props: {},
@@ -149,6 +161,8 @@ export default {
     },
     unload() {
       this.$refs.player.unload();
+      this.stats = {};
+      this.buffer = '0';
     },
     play() {
       const { video } = this.$refs.player;

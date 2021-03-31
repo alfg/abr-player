@@ -1,6 +1,6 @@
 {
   "name": "abr-player",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -8,9 +8,10 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
-    "dashjs": "^2.9.3",
+    "dashjs": "^3.2.1",
     "hasplayer.js": "^1.15.1",
-    "shaka-player": "^2.5.2",
+    "hls.js": "^0.14.17",
+    "shaka-player": "^3.0.10",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1"
   },

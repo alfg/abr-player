@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       player: null,
+      interval: null,
     };
   },
   watch: {},
@@ -37,7 +38,6 @@ export default {
         ? licenseUrl
         : config.defaultLicenseServers['com.widevine.alpha'];
 
-      const protectionController = this.player.getProtectionController();
       const protData = {
         'com.widevine.alpha': {
           serverURL: widevineUrl,
@@ -46,9 +46,12 @@ export default {
           serverURL: playreadyUrl,
         },
       };
-      protectionController.setProtectionData(protData);
+      this.player.setProtectionData(protData);
     },
     load(url, licenseUrl, drm) {
+      if (!this.player) {
+        this.init();
+      }
       this.setProtection(licenseUrl, drm);
       this.player.initialize(this.video, url, true);
       this.setPlayerEvents();
@@ -59,9 +62,9 @@ export default {
       this.player.on(dashjs.MediaPlayer.events.QUALITY_CHANGE_RENDERED, this.onAdaptationEvent);
     },
     setMetricInterval() {
-      setInterval(() => {
+      this.interval = setInterval(() => {
         this.updateMetrics();
-      }, 1000);
+      }, 2000);
     },
     selectTrack(id) {
       this.log('[DashjsPlayer] - selectTrack', id);
@@ -94,14 +97,13 @@ export default {
       this.player.setAutoSwitchQualityFor('video', enabled);
     },
     updateMetrics() {
-      const metrics = this.player.getMetricsFor('video');
-      const dashmetrics = this.player.getDashMetrics();
+      const dashMetrics = this.player.getDashMetrics();
 
       // Get active track ID.
       const activeTrack = this.player.getQualityFor('video');
 
       // Current buffer stats.
-      const bufferlevel = dashmetrics.getCurrentBufferLevel(metrics);
+      const bufferlevel = dashMetrics.getCurrentBufferLevel('video');
 
       // Current track Stats.
       const { bitrateList } = this.player.getCurrentTrackFor('video');
@@ -136,6 +138,14 @@ export default {
       //   bitrate: event.detail.bitrate,
       // };
       // this.$emit('stats', data);
+    },
+    unload() {
+      this.log('[DashjsPlayer] - unload');
+      if (this.player) {
+        clearInterval(this.interval);
+        this.player.destroy();
+        this.player = null;
+      }
     },
     log(...message) {
       this.$emit('log', ...message);

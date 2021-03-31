@@ -18,6 +18,10 @@ const config = {
       name: 'dash.js',
       component: 'DashjsPlayer',
     },
+    {
+      name: 'hls.js',
+      component: 'HlsjsPlayer',
+    },
   ],
   defaultLicenseServers: {
     'com.microsoft.playready': 'https://test.playready.microsoft.com/service/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1',
