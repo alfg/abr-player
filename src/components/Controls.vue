@@ -14,8 +14,10 @@
     <button class="rewindButton material-icons">fast_rewind</button>
     <div class="currentTime">{{timeString}} / {{durationString}}</div>
     <button class="fastForwardButton material-icons">fast_forward</button>
-    <button class="muteButton material-icons" v-on:click="setMute" v-if="muted">volume_mute</button>
-    <button class="muteButton material-icons" v-on:click="setMute" v-else>volume_up</button>
+    <button
+      class="muteButton material-icons"
+      v-on:click="setMute">{{ volume === 0 ? 'volume_mute' : 'volume_up' }}
+    </button>
     <input
       class="volumeBar"
       type="range"
@@ -73,6 +75,7 @@ export default {
   mounted() {},
   methods: {
     init() {
+      this.player.volume = this.volume;
       this.setPlayerEvents();
     },
 
@@ -109,7 +112,7 @@ export default {
       } else {
         this.volume = this.savedVolume;
       }
-      this.player.muted = this.muted;
+      this.player.volume = this.volume;
     },
 
     onPlaying() {
@@ -130,12 +133,12 @@ export default {
     onVolumeChange(event) {
       if (event.target && event.target.value) {
         this.player.volume = parseFloat(event.target.value);
-        this.volume = event.target.value;
+        this.volume = parseFloat(event.target.value);
       } else if (event.target && event.target.volume) {
         this.player.volume = parseFloat(event.target.volume);
-        this.volume = event.target.volume;
+        this.volume = parseFloat(event.target.volume);
       }
-      this.muted = this.volume === '0';
+      this.muted = this.volume === 0;
     },
 
     onDurationChange(event) {

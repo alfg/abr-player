@@ -128,14 +128,7 @@ export default {
     this.init();
   },
   mounted() {
-    // this.video = this.$refs.player.video;
     this.video = this.$refs.video;
-  },
-  watch: {
-    selectedPlayer() {
-      // this.video = this.$refs.player.video;
-      // this.controlkey += 1;
-    },
   },
   methods: {
     init() {
@@ -187,11 +180,9 @@ export default {
       this.$refs.player.enableAdaptation(event);
     },
     onStats(event) {
-      // this.log('[player] - onStats');
       this.stats = event;
     },
     onBuffer(event) {
-      // this.log('[player] - onBuffer');
       this.buffer = event;
     },
 
