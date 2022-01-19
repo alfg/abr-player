@@ -1,7 +1,7 @@
 const config = {
   defaultMedia: {
     name: 'Tears of Steel (DASH Widevine)',
-    url: 'https://demo.unified-streaming.com/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd',
+    url: 'https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel-dash-widevine.ism/.mpd',
   },
   defaultLicenseUrl: 'https://cwip-shaka-proxy.appspot.com/no_auth',
   defaultDrm: 'widevine',
